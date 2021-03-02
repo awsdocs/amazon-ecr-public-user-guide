@@ -1,6 +1,6 @@
-# Using Amazon ECR with the AWS CLI<a name="getting-started-cli"></a>
+# Quick start: Publishing to Amazon ECR Public using the AWS CLI<a name="getting-started-cli"></a>
 
-The following steps walk you through the steps needed to push a container image to an Amazon ECR public repository for the first time using the Docker CLI and the AWS CLI\.
+This quick start guide walks you through the steps needed to create a Docker image, publish the image to a public repository, pull the image down from the Amazon ECR Public Gallery, and then clean up the resources using the Docker CLI and the AWS CLI\.
 
 For more information on the other tools available for managing your AWS resources, including the different AWS SDKs, IDE toolkits, and the Windows PowerShell command line tools, see [http://aws\.amazon\.com/tools/](http://aws.amazon.com/tools/)\.
 
@@ -8,13 +8,13 @@ For more information on the other tools available for managing your AWS resource
 
 Before you begin, be sure that you've completed the steps in [Setting up with Amazon ECR](get-set-up-for-amazon-ecr.md)\.
 
-To build, tag, and push container images to your Amazon ECR public repositories you must have the AWS CLI and a CLI client, for example the Docker CLI, to do this\. Docker is a common tool for building container images\. Docker is available on many different operating systems, including most modern Linux distributions, like Ubuntu, and even Mac OSX and Windows\. You don't need a local development system to use Docker\. If you are using Amazon EC2 already, you can launch an Amazon EC2 instance and install Docker to get started\. For more information about how to install Docker on your particular operating system, go to the [Docker installation guide](https://docs.docker.com/engine/installation/#installation)\.
+To build, tag, and push container images to your Amazon ECR public repositories you must have the AWS CLI and a container CLI client, for example Docker\. Docker is a common tool for building container images\. For more information about how to install Docker, see [Docker installation guide](https://docs.docker.com/engine/installation/#installation)\.
 
-To use the AWS CLI with Amazon ECR Public, install the latest AWS CLI version\. For information about installing the AWS CLI or upgrading to the latest version, see [Installing the AWS CLI version 2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) in the *AWS Command Line Interface User Guide*\.
+To use the AWS CLI with Amazon ECR Public, install the latest AWS CLI version\. For information, see [Installing the AWS CLI version 2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) in the *AWS Command Line Interface User Guide*\.
 
 ## Step 1: Create a Docker image<a name="cli-create-image"></a>
 
-In this section, you create a Docker image of a simple web application, and test it on your local system or EC2 instance, and then push the image to a container registry \(such as Amazon ECR or Docker Hub\) so you can use it in an ECS task definition\.
+In this step, you create a Docker image of a simple web application, and test it on your local system or Amazon EC2 instance\.
 
 **To create a Docker image of a simple web application**
 
@@ -27,20 +27,19 @@ In this section, you create a Docker image of a simple web application, and test
 1. Edit the `Dockerfile` you just created and add the following content\.
 
    ```
-   FROM ubuntu:18.04
+   FROM public.ecr.aws/amazonlinux/amazonlinux:latest
    
    # Install dependencies
-   RUN apt-get update && \
-    apt-get -y install apache2
+   RUN yum update -y && \
+    yum install -y httpd
    
    # Install apache and write hello world message
    RUN echo 'Hello World!' > /var/www/html/index.html
    
    # Configure apache
-   RUN echo '. /etc/apache2/envvars' > /root/run_apache.sh && \
-    echo 'mkdir -p /var/run/apache2' >> /root/run_apache.sh && \
-    echo 'mkdir -p /var/lock/apache2' >> /root/run_apache.sh && \ 
-    echo '/usr/sbin/apache2 -D FOREGROUND' >> /root/run_apache.sh && \ 
+   RUN echo 'mkdir -p /var/run/httpd' >> /root/run_apache.sh && \
+    echo 'mkdir -p /var/lock/httpd' >> /root/run_apache.sh && \
+    echo '/usr/sbin/httpd -D FOREGROUND' >> /root/run_apache.sh && \
     chmod 755 /root/run_apache.sh
    
    EXPOSE 80
@@ -48,7 +47,7 @@ In this section, you create a Docker image of a simple web application, and test
    CMD /root/run_apache.sh
    ```
 
-   This Dockerfile uses the Ubuntu 18\.04 image\. The `RUN` instructions update the package caches, install some software packages for the web server, and then write the "Hello World\!" content to the web server's document root\. The `EXPOSE` instruction exposes port 80 on the container, and the `CMD` instruction starts the web server\.
+   This Dockerfile uses the public Amazon Linux 2 image hosted on Amazon ECR Public\. The `RUN` instructions update the package caches, installs some software packages for the web server, and then write the "Hello World\!" content to the web server's document root\. The `EXPOSE` instruction exposes port 80 on the container, and the `CMD` instruction starts the web server\.
 
 1. <a name="sample-docker-build-step"></a>Build the Docker image from your Dockerfile\.
 **Note**  
@@ -58,7 +57,7 @@ Some versions of Docker may require the full path to your Dockerfile in the foll
    docker build -t hello-world .
    ```
 
-1. Run docker images to verify that the image was created correctly\.
+1. List your container image\.
 
    ```
    docker images --filter reference=hello-world
@@ -92,11 +91,11 @@ Output from the Apache web server is displayed in the terminal window\. You can 
 
 1. Stop the Docker container by typing **Ctrl \+ c**\.
 
-## Step 2: Authenticate to the public registry<a name="cli-authenticate-registry"></a>
+## Step 2: Authenticate to a public registry<a name="cli-authenticate-registry"></a>
 
 After you have installed and configured the AWS CLI, authenticate the Docker CLI to your public registry\. That way, the docker command can push to and pull images from an Amazon ECR public repository\. The AWS CLI provides a get\-login\-password command to simplify the authentication process\.
 
-To authenticate Docker to an Amazon ECR public registry with get\-login\-password, run the aws ecr\-public get\-login\-password \-\-region us\-east\-1 command\. When authenticating to your public registry with the AWS CLI, always specify `--region us-east-1`\. The authentication token received gives you access to each public registry your IAM principal has access to\. When passing the authentication token to the docker login command, use the value `AWS` for the username and specify `public.ecr.aws`, which is the common public registry URI\.
+To authenticate Docker to an Amazon ECR public registry with get\-login\-password, run the aws ecr\-public get\-login\-password \-\-region us\-east\-1 command\. The Amazon ECR Public registry requires authentication in the `us-east-1` Region, so you need to specify `--region us-east-1` each time you authenticate\. The authentication token received gives you access to each public registry your IAM principal has access to\. When passing the authentication token to the docker login command, use the value `AWS` for the username and specify `public.ecr.aws`, which is the common public registry URI\.
 
 **Important**  
 If you receive an error, install or upgrade to the latest version of the AWS CLI\. For more information, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
@@ -107,9 +106,12 @@ aws ecr-public get-login-password --region us-east-1 | docker login --username A
 
 ## Step 3: Create a public repository<a name="cli-create-repository"></a>
 
-Now that you have an image to push to Amazon ECR, you must create a public repository to hold it\. In this example, you create a public repository called `ecr-tutorial` to which you later push the `hello-world:latest` image\. All public repositories that contain an image are publicly visible in the Amazon ECR Public Gallery so we will specify some catalog data for the repository\.
+Now that you have an image to push to Amazon ECR Public, you can create a public repository\. In this example, you create a public repository called `ecr-tutorial` to which you later push the `hello-world:latest` image\. All public repositories that contain an image are publicly visible in the Amazon ECR Public Gallery so we will specify some catalog data for the repository\.
 
-Create a file named `repositorycatalogdata.json` with the following contents\. For this tutorial we are going to include a repository logo, which is named `myrepoimage.png` and is in the same directory as the `repositorycatalogdata.json` file we are creating\. When creating a repository logo, the supported image dimensions for both height and width should be a minimum of 60 pixels and a maximum of 2048 pixels\. The maximum logo file size is 500 KB\.
+Create a file named `repositorycatalogdata.json` with the following contents\. For this tutorial we are going to include a repository logo, which is named `myrepoimage.png` and is in the same directory as the `repositorycatalogdata.json` file we are creating\.
+
+**Note**  
+When creating a repository logo, the supported image dimensions for both height and width should be a minimum of 60 pixels and a maximum of 2048 pixels\. The maximum logo file size is 500 KB\.
 
 ```
 {
@@ -120,7 +122,7 @@ Create a file named `repositorycatalogdata.json` with the following contents\. F
     "operatingSystems": [
         "Linux"
     ],
-    "logoImageBlob": "$(cat myrepoimage.png |base64)"
+    "logoImageBlob": "$(cat myrepoimage.png |base64 -w 0)",
     "aboutText": "This repository is used as a tutorial only.",
     "usageText": "This repository is not for public use."
 }
@@ -183,7 +185,10 @@ After those prerequisites are met, you can push your image to your newly created
 
 ## Step 5: Pull an image from the Amazon ECR Public Gallery<a name="cli-pull-image"></a>
 
-After your image has been pushed to your Amazon ECR public repository, you can pull it from other locations\. Use the Docker CLI to pull images\.
+After your image has been pushed to your Amazon ECR public repository, you can pull it from other locations\. It is considered best practice to authenticate prior to pulling images from the public gallery\. If you need to reauthenticate, see [Step 2: Authenticate to a public registry](#cli-authenticate-registry)\.
+
+**Note**  
+Unauthenticated pulls are allowed, but have a lower rate limit than authenticated pulls\. For more information, see [Amazon ECR Public service quotas](public-service-quotas.md)\.
 
 View your repository on the Amazon ECR Public Gallery\.
 
@@ -195,22 +200,24 @@ https://gallery.ecr.aws/registry_alias/ecr-tutorial
 docker pull public.ecr.aws/registry_alias/ecr-tutorial/hello-world:latest
 ```
 
-## Step 6: Delete an image<a name="cli-delete-image"></a>
+## Step 6: Delete a public image<a name="cli-delete-image"></a>
 
 If you decide that you no longer need or want an image in one of your repositories, you can delete it with the batch\-delete\-image command\. To delete an image, you must specify the repository that it is in and either a `imageTag` or `imageDigest` value for the image\. The example below deletes an image in the `hello-world` repository with the image tag `latest`\.
 
 ```
 aws ecr-public batch-delete-image \
       --repository-name ecr-tutorial \
-      --image-ids imageTag=latest
+      --image-ids imageTag=latest \
+      --region us-east-1
 ```
 
-## Step 7: Delete the public repository<a name="cli-delete-repository"></a>
+## Step 7: Delete a public repository<a name="cli-delete-repository"></a>
 
 If you decide that you no longer need or want an entire repository of images, you can delete the repository\. By default, you cannot delete a repository that contains images; however, the `--force` flag allows this\. To delete a repository that contains images \(and all the images within it\), run the following command\.
 
 ```
 aws ecr-public delete-repository \
       --repository-name ecr-tutorial \
-      --force
+      --force \
+      --region us-east-1
 ```

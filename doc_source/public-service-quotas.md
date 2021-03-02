@@ -17,7 +17,7 @@ The following table provides the default rate quotas for each of the Amazon ECR 
 
 
 ****  
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/AmazonECR/latest/userguide/public-service-quotas.html)
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/AmazonECR/latest/public/public-service-quotas.html)
 
 The following table provides other quotas for Amazon ECR and Docker images that cannot be changed\.
 

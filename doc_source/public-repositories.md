@@ -12,6 +12,7 @@ A public repository is open to publicly pull images from and is visible on the A
 + [Viewing public repository information](public-repository-info.md)
 + [Deleting a public repository](public-repository-delete.md)
 + [Public repository policies](public-repository-policies.md)
++ [Tagging an Amazon ECR Public repository](ecr-public-using-tags.md)
 
 ## Public repository concepts<a name="public-repository-concepts"></a>
 + The public repositories you create that contain images appear publicly on the Amazon ECR Public Gallery\. Visit the Amazon ECR Public Gallery at [https://gallery\.ecr\.aws](https://gallery.ecr.aws)\. For more information, see [Using the Amazon ECR Public Gallery](public-gallery.md)\.

@@ -54,7 +54,7 @@ For actions that don't support resource\-level permissions, such as listing oper
 An Amazon ECR public repository resource has the following ARN\. You don't use a Region name in the ARN\.
 
 ```
-arn:${Partition}:ecr-public:::${Account}:repository/${Repository-name}
+arn:${Partition}:ecr-public::${Account}:repository/${Repository-name}
 ```
 
 For more information about the format of ARNs, see [Amazon Resource Names \(ARNs\) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)\.
@@ -62,13 +62,13 @@ For more information about the format of ARNs, see [Amazon Resource Names \(ARNs
 For example, to specify the `my-repo` public repository in your statement, use the following ARN:
 
 ```
-"Resource": "arn:aws:ecr-public:::123456789012:repository/my-repo"
+"Resource": "arn:aws:ecr-public::123456789012:repository/my-repo"
 ```
 
 To specify all public repositories that belong to a specific account, use the wildcard \(\*\):
 
 ```
-"Resource": "arn:aws:ecr-public:::123456789012:repository/*"
+"Resource": "arn:aws:ecr-public::123456789012:repository/*"
 ```
 
 To specify multiple resources in a single statement, separate the ARNs with commas\. 

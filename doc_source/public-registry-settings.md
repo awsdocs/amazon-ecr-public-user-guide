@@ -1,6 +1,14 @@
 # Updating registry settings<a name="public-registry-settings"></a>
 
-Your public registry provides settings to configure a custom alias and display name\. By default, your public registry is assigned a **default alias** after your first public repository is created\. You can request a custom alias for your registry, and if approved, both the default alias and custom alias can be used to access your public repositories\. The registry display name appears on each repository in the Amazon ECR Public Gallery if your account has been verified\. For non\-verified accounts, the display name can be configured but it will not be visible\.
+Your public registry provides settings to configure a custom alias and display name\.
+
+By default, your public registry is assigned a **default alias** after your first public repository is created\. You can request a **custom alias** for your registry, and if approved, both the default alias and custom alias can be used to access your public repositories\. The registry **display name** appears on each repository in the Amazon ECR Public Gallery if your account has been verified\. For non\-verified accounts, the display name can be configured but it will not be visible\.
+
+When requesting a custom alias, the following words or phrases should be avoided:
++ An alias that includes `aws`, `amazon`, or the name of an AWS service
++ An alias using a company name for which you do not have permission to use
++ Generic names, such as `test`, `public`, and `marketplace`
++ Offensive, inappropriate, or non\-inclusive words and phrases
 
 Use the following steps to edit your public registry settings\.
 

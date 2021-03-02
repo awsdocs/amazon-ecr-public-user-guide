@@ -12,6 +12,7 @@ For IAM information for Amazon ECR private registries, see [Identity and Access 
 + [How Amazon ECR Public works with IAM](security_iam_service-with-iam.md)
 + [Amazon ECR Public managed IAM policies](public-ecr-managed-policies.md)
 + [Amazon ECR identity\-based policy examples](security_iam_id-based-policy-examples.md)
++ [Using tag\-based access control](ecr-supported-iam-actions-tagging.md)
 + [Troubleshooting Amazon ECR identity and access](security_iam_troubleshoot.md)
 
 ## Audience<a name="security_iam_audience"></a>

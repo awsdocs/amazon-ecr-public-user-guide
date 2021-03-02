@@ -1,7 +1,7 @@
 # Amazon ECR Public User Guide
 
 -----
-*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -17,7 +17,7 @@ Amazon's trademarks and trade dress may not be used in
 + [What Is Amazon Elastic Container Registry Public?](what-is-ecr.md)
 + [Setting up with Amazon ECR](get-set-up-for-amazon-ecr.md)
 + [Getting started with Amazon ECR Public](public-getting-started.md)
-+ [Using Amazon ECR with the AWS CLI](getting-started-cli.md)
++ [Quick start: Publishing to Amazon ECR Public using the AWS CLI](getting-started-cli.md)
 + [Using the Amazon ECR Public Gallery](public-gallery.md)
 + [Amazon ECR public registries](public-registries.md)
    + [Updating registry settings](public-registry-settings.md)
@@ -31,6 +31,7 @@ Amazon's trademarks and trade dress may not be used in
       + [Setting a repository policy statement](set-public-repository-policy.md)
       + [Deleting a public repository policy statement](delete-public-repository-policy.md)
       + [Public repository policy examples](public-repository-policy-examples.md)
+   + [Tagging an Amazon ECR Public repository](ecr-public-using-tags.md)
 + [Public images](public-images.md)
    + [Pushing a public image](docker-push-ecr-image.md)
    + [Pushing a multi-architecture image](docker-push-multi-architecture-image.md)
@@ -43,6 +44,7 @@ Amazon's trademarks and trade dress may not be used in
       + [How Amazon ECR Public works with IAM](security_iam_service-with-iam.md)
       + [Amazon ECR Public managed IAM policies](public-ecr-managed-policies.md)
       + [Amazon ECR identity-based policy examples](security_iam_id-based-policy-examples.md)
+      + [Using tag-based access control](ecr-supported-iam-actions-tagging.md)
       + [Troubleshooting Amazon ECR identity and access](security_iam_troubleshoot.md)
 + [Logging Amazon ECR Public actions with AWS CloudTrail](logging-using-cloudtrail.md)
 + [Amazon ECR Public service quotas](public-service-quotas.md)

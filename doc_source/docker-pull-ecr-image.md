@@ -14,5 +14,5 @@ Amazon ECR requires that users have permission to make calls to the `ecr-public:
 1. Pull the image using the docker pull command\. The image name format should be `registry_alias/repository[:tag]` to pull by tag, or `registry_alias/repository[@digest]` to pull by digest\.
 
    ```
-   docker pull public.ecr.aws/registry_alias/amazonlinux:latest
+   docker pull public.ecr.aws/registry_alias/repository:tag
    ```

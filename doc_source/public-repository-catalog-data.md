@@ -126,7 +126,7 @@ The following example is how you would format lists using the AWS CLI\.
 
 The following screenshot from the Amazon ECR Public Gallery displays how an **About** section could be constructed\. We show how to format this text using both the AWS Management Console and the AWS CLI\.
 
-![\[Example - Repository About\]](http://docs.aws.amazon.com/AmazonECR/latest/userguide/images/catalog-data-about.png)
+![\[Example - Repository About\]](http://docs.aws.amazon.com/AmazonECR/latest/public/images/catalog-data-about.png)
 
 **AWS Management Console**  
 The following is how you would format the screenshot above using the console\.
@@ -183,7 +183,7 @@ The following is how you would format the screenshot above using the AWS CLI\.
 
 The following screenshot from the Amazon ECR Public Gallery displays how an **Usage** section could be constructed\. We show how to format this text using both the AWS Management Console and the AWS CLI\.
 
-![\[Example - Repository Usage\]](http://docs.aws.amazon.com/AmazonECR/latest/userguide/images/catalog-data-usage.png)
+![\[Example - Repository Usage\]](http://docs.aws.amazon.com/AmazonECR/latest/public/images/catalog-data-usage.png)
 
 **AWS Management Console**  
 The following is how you would format the screenshot above using the console\.
