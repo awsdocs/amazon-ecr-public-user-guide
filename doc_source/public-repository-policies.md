@@ -40,9 +40,6 @@ This example shows an IAM policy that achieves the same goal as above, by scopin
   "Statement": [{
     "Sid": "ECR Public Repository Policy",
     "Effect": "Allow",
-    "Principal": {
-      "AWS": "arn:aws:iam::account-id:user/username"
-    },
     "Action": [
       "ecr-public:DescribeImages",
       "ecr-public:DescribeRepositories"
